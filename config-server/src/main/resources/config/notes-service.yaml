@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: notes-service
+  data:
+    elasticsearch:
+      cluster-name: notes-cluster
+      cluster-nodes: localhost:9300
+
+server:
+  port: 8080
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8010/eureka/

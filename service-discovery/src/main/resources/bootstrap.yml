@@ -1,0 +1,5 @@
+spring:
+  cloud:
+    config:
+      name: service-discovery
+      uri: http://localhost:8001
