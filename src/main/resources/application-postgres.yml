@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/management}
+    username: ${DB_USERNAME:management}
+    password: ${DB_PASSWORD:management}
+
+app:
+  demo-data:
+    enabled: ${DEMO_DATA:true}

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Management App</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="topbar">
+    <div class="brand">
+        <span class="logo" aria-hidden="true">◆</span>
+        <span>Management</span>
+    </div>
+    <nav class="tabs" role="tablist">
+        <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+        <button role="tab" data-tab="finance">Finance</button>
+        <button role="tab" data-tab="notes">Notes</button>
+        <button role="tab" data-tab="time">Time</button>
+    </nav>
+    <a class="api-link" href="swagger-ui.html">API docs ↗</a>
+</header>
+
+<main>
+    <!-- Overview -->
+    <section id="panel-overview" class="panel" role="tabpanel">
+        <div class="cards">
+            <article class="card stat"><span class="label">Balance this month</span><strong id="ov-balance">–</strong></article>
+            <article class="card stat"><span class="label">Income</span><strong id="ov-income" class="pos">–</strong></article>
+            <article class="card stat"><span class="label">Expenses</span><strong id="ov-expenses" class="neg">–</strong></article>
+            <article class="card stat"><span class="label">Productivity (7 days)</span><strong id="ov-score">–</strong></article>
+        </div>
+        <div class="grid-2">
+            <article class="card">
+                <h2>Where the money went</h2>
+                <div id="ov-categories" class="bars"></div>
+            </article>
+            <article class="card">
+                <h2>Right now</h2>
+                <div id="ov-timer" class="timer-widget"></div>
+                <h2 class="spaced">Pinned notes</h2>
+                <ul id="ov-pinned" class="plain-list"></ul>
+            </article>
+        </div>
+    </section>
+
+    <!-- Finance -->
+    <section id="panel-finance" class="panel" role="tabpanel" hidden>
+        <article class="card">
+            <h2>Add transaction</h2>
+            <form id="tx-form" class="form-row">
+                <input name="description" placeholder="Description" required maxlength="255">
+                <input name="amount" type="number" step="0.01" min="0.01" placeholder="Amount" required>
+                <select name="type"><option>EXPENSE</option><option>INCOME</option></select>
+                <input name="category" placeholder="Category" required maxlength="64">
+                <input name="occurredOn" type="date" required>
+                <button type="submit" class="primary">Add</button>
+            </form>
+            <p class="form-error" id="tx-error"></p>
+        </article>
+        <article class="card">
+            <div class="card-head">
+                <h2>Transactions</h2>
+                <select id="tx-filter" aria-label="Filter by type">
+                    <option value="">All</option><option>INCOME</option><option>EXPENSE</option>
+                </select>
+            </div>
+            <table>
+                <thead><tr><th>Date</th><th>Description</th><th>Category</th><th class="num">Amount</th><th></th></tr></thead>
+                <tbody id="tx-rows"></tbody>
+            </table>
+        </article>
+    </section>
+
+    <!-- Notes -->
+    <section id="panel-notes" class="panel" role="tabpanel" hidden>
+        <article class="card">
+            <h2>New note</h2>
+            <form id="note-form" class="stack">
+                <input name="title" placeholder="Title" required maxlength="200">
+                <textarea name="content" placeholder="Write something…" rows="3" required maxlength="10000"></textarea>
+                <div class="form-row">
+                    <input name="tags" placeholder="Tags, comma separated">
+                    <button type="submit" class="primary">Save note</button>
+                </div>
+            </form>
+            <p class="form-error" id="note-error"></p>
+        </article>
+        <div class="toolbar">
+            <input id="note-search" type="search" placeholder="Search notes…">
+            <div id="note-tags" class="chips"></div>
+        </div>
+        <div id="note-grid" class="note-grid"></div>
+    </section>
+
+    <!-- Time -->
+    <section id="panel-time" class="panel" role="tabpanel" hidden>
+        <div class="grid-2">
+            <article class="card">
+                <h2>Timer</h2>
+                <div id="time-current" class="timer-widget"></div>
+                <form id="timer-form" class="form-row">
+                    <input name="activity" placeholder="What are you doing?" required maxlength="120">
+                    <select name="focus"><option>PRODUCTIVE</option><option>PROCRASTINATION</option></select>
+                    <button type="submit" class="primary">Start</button>
+                </form>
+                <p class="form-error" id="timer-error"></p>
+            </article>
+            <article class="card">
+                <h2>Last 7 days</h2>
+                <div id="time-stats"></div>
+            </article>
+        </div>
+        <article class="card">
+            <h2>Recent entries</h2>
+            <table>
+                <thead><tr><th>Started</th><th>Activity</th><th>Focus</th><th class="num">Duration</th><th></th></tr></thead>
+                <tbody id="time-rows"></tbody>
+            </table>
+        </article>
+    </section>
+</main>
+
+<footer>Built with Spring Boot 4 · <a href="swagger-ui.html">OpenAPI docs</a></footer>
+<script src="app.js"></script>
+</body>
+</html>
